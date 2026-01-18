@@ -41,7 +41,8 @@ function stripLineSuffix(path: string) {
 
 function revealLabel() {
   const platform =
-    navigator.userAgentData?.platform ?? navigator.platform ?? "";
+    (navigator as Navigator & { userAgentData?: { platform?: string } })
+      .userAgentData?.platform ?? navigator.platform ?? "";
   const normalized = platform.toLowerCase();
   if (normalized.includes("mac")) {
     return "Reveal in Finder";
